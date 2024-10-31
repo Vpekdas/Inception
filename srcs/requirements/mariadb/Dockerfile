@@ -5,6 +5,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     mariadb-server && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN mkdir -p /run/mysqld/ && chown mysql:mysql /run/mysqld && chmod 777 /run/mysqld
+
 # Copy the MySQL configuration file
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
@@ -18,4 +20,5 @@ RUN chmod +x /usr/local/bin/initialize-db.sh
 EXPOSE 3306
 
 # Run the initialization script and then start the MySQL server
-CMD ["bash", "/usr/local/bin/initialize-db.sh"]
+ENTRYPOINT [ "bash", "/usr/local/bin/initialize-db.sh"]
+CMD ["mariadbd"]

@@ -7,6 +7,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     php \
     php-fpm \
     php-mysql \
+    redis \
+	php-redis \
     mariadb-client \
     mariadb-server && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

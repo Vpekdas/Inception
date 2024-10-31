@@ -11,13 +11,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
     mariadb-server && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Download and extract WordPress
-RUN wget https://wordpress.org/latest.tar.gz -P /var/www && \
-    cd /var/www && \
-    tar -xzf latest.tar.gz && \
-    rm latest.tar.gz && \
-    chown -R www-data:www-data /var/www/wordpress && mkdir -p /var/run/php/
-
 # Copy the PHP-FPM configuration file
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
 
@@ -36,4 +29,7 @@ COPY tools/init-wordpress.sh /usr/local/bin/init-wordpress.sh
 RUN chmod +x /usr/local/bin/init-wordpress.sh
 RUN mkdir -p /run/php
 
+EXPOSE 9000
+
 ENTRYPOINT ["/usr/local/bin/init-wordpress.sh"]
+CMD [ "php-fpm7.4", "-F" ]

@@ -15,7 +15,7 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 RUN chmod 755 /var/www/html && chown -R www-data:www-data /var/www/html
 
 # Copy Nginx configuration file
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf/nginx.conf /etc/nginx/conf.d/wordpress.conf
 
 
 # Expose port 443 for HTTPS

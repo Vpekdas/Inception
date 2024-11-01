@@ -9,10 +9,10 @@ services:
     depends_on:
       - wordpress
       - redis
+      - adminer
     restart: always
     volumes:
-      - wordpress:/var/www/wordpress
-  
+      - wordpress:/var/www/html
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
@@ -23,7 +23,6 @@ services:
       - mariadb:/var/lib/mysql
     env_file:
       - .env
-  
   wordpress:
     container_name: wordpress
     build: requirements/wordpress
@@ -33,10 +32,9 @@ services:
       - mariadb
     restart: always
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     env_file:
       - .env
-  
   portfolio:
     container_name: portfolio
     build: requirements/bonus/portfolio
@@ -45,7 +43,6 @@ services:
     networks:
       - inception
     restart: always
-
   redis:
     container_name: redis
     build: requirements/bonus/redis
@@ -59,7 +56,7 @@ services:
     env_file:
       - .env
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
   ftp:
     container_name: ftp
     build: requirements/bonus/ftp
@@ -70,12 +67,20 @@ services:
       - inception
     restart: always
     volumes:
-      - wordpress:/var/www/wordpress
-
+      - wordpress:/var/www/html
+  adminer:
+    container_name: adminer
+    build: requirements/bonus/adminer
+    networks:
+      - inception
+    restart: always
+    volumes:
+      - wordpress:/var/www/html/
+    depends_on:
+      - mariadb
 networks:
   inception:
     driver: bridge
-
 volumes:
   wordpress:
     driver: local

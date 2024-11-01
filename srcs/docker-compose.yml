@@ -60,6 +60,17 @@ services:
       - .env
     volumes:
       - wordpress:/var/www/wordpress
+  ftp:
+    container_name: ftp
+    build: requirements/bonus/ftp
+    ports:
+      - 21:21
+      - "21100-21110:21100-21110"
+    networks:
+      - inception
+    restart: always
+    volumes:
+      - wordpress:/var/www/wordpress
 
 networks:
   inception:

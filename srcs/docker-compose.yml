@@ -78,6 +78,17 @@ services:
       - wordpress:/var/www/html/
     depends_on:
       - mariadb
+  portainer:
+    container_name: portainer
+    build: requirements/bonus/portainer
+    ports:
+      - 9000:9000
+    networks:
+      - inception
+    volumes:
+      - portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
 networks:
   inception:
     driver: bridge
@@ -94,3 +105,9 @@ volumes:
       type: none
       o: bind
       device: ~/data/mariadb
+  portainer:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ~/data/portainer

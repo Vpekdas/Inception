@@ -2,6 +2,8 @@
 
 mkdir -p /var/run/vsftpd/empty
 
+# TODO: Use env.
+
 if [[ ! -f "ftp" ]]; then
 useradd testuser1
 echo "testuser1:test123" | chpasswd

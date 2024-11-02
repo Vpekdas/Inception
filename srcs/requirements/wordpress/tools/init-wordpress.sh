@@ -23,8 +23,10 @@ if [ ! -f "$FILE" ]; then
     --admin_password=$WP_ADMIN_PASSWORD \
     --admin_email=$WP_ADMIN_EMAIL --path='/var/www/html'
 
-    # TODO: Use env.
-    wp --allow-root user create guest guest@example.com --user_pass=password123 --path='/var/www/html'
+    wp theme install "gamers-studio" --allow-root --path='/var/www/html'
+    wp theme activate gamers-studio --allow-root --path='/var/www/html'
+
+    wp --allow-root user create $WP_GUEST_USER $WP_GUEST_EMAIL --user_pass=$WP_GUEST_PASSWORD --path='/var/www/html'
 
     wp config set WP_REDIS_HOST redis --allow-root --path='/var/www/html'
     wp config set WP_REDIS_PORT 6379 --raw --allow-root --path='/var/www/html'

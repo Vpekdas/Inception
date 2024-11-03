@@ -13,7 +13,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 RUN git clone https://github.com/Vpekdas/Vpekdas.github.io && cd Vpekdas.github.io \
     && npm install && npm run build
 
-# Create server directory and copy server files
 RUN mkdir /server
 COPY server/index.js /server
 COPY server/package.json /server
@@ -21,10 +20,8 @@ COPY server/package.json /server
 # Install server dependencies
 RUN cd /server && npm install
 
-# Expose port 8080
 EXPOSE 8080
 
-# Set the working directory
 WORKDIR /server
 
 # Start the application

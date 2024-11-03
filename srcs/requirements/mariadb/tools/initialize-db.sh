@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://docs.bitnami.com/aws/apps/wordpress/configuration/create-database-mysql/
+
 if [[ ! -d "/var/lib/mysql/$SQL_DATABASE" ]]; then
     mariadb-install-db --user=mysql
 

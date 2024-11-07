@@ -5,4 +5,4 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 clean: down
-	rm -rf ~/data/mariadb ~/data/wordpress ~/data/portainer
+	sudo rm -rf ~/data/mariadb ~/data/wordpress ~/data/portainer
